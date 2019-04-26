@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+
+  <link rel="stylesheet" href="/book/css/bootstrap.css">
+  <link rel="stylesheet" href="/book/css/reset.css">
+  <link rel="stylesheet" href="/book/css/main.css">
+
+  <script src="/book/3rd/jquery.js"></script>
+  <script src="/book/3rd/bootstrap.js"></script>
+  <script src="/book/3rd/angular-1.4.6.js"></script>
+  <script src="bookList.js"></script>
+</head>
+
+<body ng-app="bookListApp" ng-controller="bookListCtrl" ng-init="init()" ng-cloak>
+
+  <div class="container" style="margin-bottom: 100px;margin-top: 50px">
+    <div style="width: 700px;float: left;margin-right: 40px">
+      <div style="border-bottom: 1px solid #b9b9b9;margin-bottom: 15px;font-size: 18px;font-weight: bolder;padding-bottom: 5px;width: 675px">新书速递</div>
+      <ul>
+        <li style="width:115px;margin: 0 25px 15px 0" ng-repeat="item in bookList track by $index">
+          <div style="width: 115px;height: 172px; margin-bottom: 7px;">
+            <a href="">
+              <img ng-src="{{downUrl + '?imageName=' + item.picture}}" style="width: 115px;height: 172px;">
+            </a>
+          </div>
+          <div>
+            <div style="margin-bottom: 5px">
+              <a href="" ng-bind="item.name"></a>
+            </div>
+            <div style="font-size: 13px" ng-bind="item.author"></div>
+          </div>
+        </li>
+       
+        <div style="clear:both"></div>
+      </ul>
+    </div>
+    <div style="float: left;width: 300px">
+
+      <div style="margin: 32px 0;position: relative;">
+        <img src="/book/assets/images/ad.jpg" style="width:100%">
+        <div style="line-height: 1; text-align: center; background-color: rgba(0, 0, 0, 0.3); font-size: 12px; position: absolute; right: 0px; bottom: 0px; padding: 4px; color: rgb(255, 255, 255);">广告</div>
+      </div>
+
+      <div style="border-bottom: 1px solid #b9b9b9;margin-bottom: 15px;font-size: 18px;font-weight: bolder;padding-bottom: 5px;">热门标签</div>
+      <ul>
+        <li ng-repeat="item in hotList track by $index">
+          <a href="" style="font-size: 13px;padding: 2px 15px 0;display: inline-block;margin: 0 10px 10px 0;line-height: 20px;background-color: #e7e5e5;" ng-bind="item"></a>
+        </li>
+        
+        
+
+      </ul>
+    </div>
+
+
+
+
+
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+
+  <link rel="stylesheet" href="/movie/css/bootstrap.css">
+  <link rel="stylesheet" href="/movie/css/app.css">
+  <link rel="stylesheet" href="/movie/css/reset.css">
+  <link rel="stylesheet" href="/movie/css/user.css">
+  <link rel="stylesheet" href="/movie/css/bootstrapValidator.css">
+
+  <script src="/movie/3rd/jquery.js"></script>
+  <script src="/movie/3rd/bootstrap.js"></script>
+  <script src="/movie/3rd/angular-1.4.6.js"></script>
+  <script src="/movie/3rd/bootstrapValidator.js"></script>
+  <script src="review.js"></script>
+  <style>
+
+  </style>
+</head>
+
+<body ng-app="reviewApp" ng-controller="reviewlCtrl" ng-init="init()" ng-cloak>
+
+  <div id="wrapper">
+    <div class="margin-top-40"></div>
+    <div id="content">
+      <h1><span ng-bind="userName"></span>的影评（<span ng-bind="total"></span>）</h1>
+
+      <div class="margin-top-20"></div>
+
+      <div class="all">
+        <div class="col-md-8">
+          <div class="article" ng-repeat="item in reviewList track by $index">
+            <div class="mod-bd" id="coments">
+              <div class="content">
+                <div class="comment-item">
+                  <div class="comment">
+                    <div class="list-title">
+                      <div class="pull-left blue" ng-bind="item.createTime|newdate">
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="title2">
+                      <div class="pull-left"><span ng-bind="item.userName"></span>&nbsp;&nbsp;评论:
+                        <a ng-click="gotoDetail(item.movieId)" class="blue">
+                          《<span ng-bind="item.movieName"></span>》</a>
+                      </div>
+                      <div class="pull-left allstar{{item.score}} rating"></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="list-content" id="wrap" ng-bind="item.review"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 aside">
+          <div class="margin-top-10"></div>
+          <p class="pl">欢迎观看我的评论......</p>
+
+          <!-- <div class="margin-top-30"></div>
+          <p class="p2">>&nbsp;<a class="blue" name="">qwer1的电影首页</a></p> -->
+
+          <div class="margin-top-30"></div>
+          <div class="decri">
+            <p>这是我对所有电影的评论，您也可以发表不同意见哦~~</p>
+
+            <div class="margin-top-10"></div>
+            <p>欢迎亲多来瞅瞅~~</p>
+          </div>
+          <div class="margin-top-30"></div>
+
+
+        </div>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="margin-left-30 margin-top-30">
+        <ul id="paginator"></ul>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

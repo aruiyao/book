@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title> 爱读书</title>
+
+  <link rel="stylesheet" href="/book/css/bootstrap.css">
+  <link rel="stylesheet" href="/book/css/reset.css">
+
+  <script src="/book/3rd/jquery.js"></script>
+  <script src="/book/3rd/bootstrap.js"></script>
+  <script src="/book/3rd/angular-1.4.6.js"></script>
+  <script src="index.js"></script>
+</head>
+
+<body ng-app="indexApp" ng-controller="indexCtrl" ng-init="init()" style="overflow-y: hidden;" ng-cloak>
+  <div>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="" ng-click="changeUrl('/book/view/book/list/bookList.html?type=&tagName=新书速递')">爱读书</a>
+          <p class="navbar-text"> <a href="" class="navbar-link" ng-click="changeUrl('/book/view/book/list/bookList.html?type=&tagName=新书速递')">首页</a></p>
+        </div>
+        <p class="navbar-text navbar-right" ng-show="userName===null"> <a href="#" class="navbar-link" ng-click="register()">注册</a></p>
+        <p class="navbar-text navbar-right" ng-show="userName===null"> <a href="#" class="navbar-link" ng-click="login()">登录</a></p>
+        <p class="navbar-text navbar-right" ng-show="userName!==null"> <a href="#" class="navbar-link" ng-click="logout()">退出</a></p>
+        <p class="navbar-text navbar-right" ng-show="userName!==null">您好：<a href="#" class="navbar-link" ng-bind="userName" ng-click="changeUrl('/book/view/user/review/review.html')"></a></p>
+      </div>
+    </nav>
+    <iframe frameborder="0" ng-init="changeFrameHeight()" id="iframepage" style="margin-top: 50px"></iframe>
+  </div>
+
+</body>
+
+</html>
