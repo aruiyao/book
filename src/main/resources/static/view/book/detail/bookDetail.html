@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="/book/css/bootstrap.css">
   <link rel="stylesheet" href="/book/css/reset.css">
   <link rel="stylesheet" href="/book/css/bootstrapValidator.css">
+  <link rel="stylesheet" href="/book/css/app.css">
 
   <script src="/book/3rd/jquery.js"></script>
   <script src="/book/3rd/bootstrap.js"></script>
@@ -17,78 +18,127 @@
   <script src="/book/3rd/bootstrapValidator.js"></script>
   <script src="bookDetail.js"></script>
   <style>
-    .span2{
-    width: 75px;
-  }
-  .span3{
-    width: 450px;
-  }
+    .span2 {
+      width: 75px;
+    }
 
-  .bookInfo{
-    float: left;
-    margin-left: 30px
-  }
-  .bookInfo>div span:first-child{
-    color:#858585
-  }
-  .bookInfo>div{
-    padding: 5px 0
-  }
+    .span3 {
+      width: 450px;
+    }
+
+    .bookInfo {
+      float: left;
+      margin-left: 30px
+    }
+
+    .bookInfo>div span:first-child {
+      color: #858585
+    }
+
+    .bookInfo>div {
+      padding: 5px 0
+    }
+
+    .pull-right {
+      font-size: 14px;
+      color: #fff;
+      padding: 2px 11px;
+      background-color: #5353ff;
+      border-radius: 4px;
+      cursor: pointer;
+    }
   </style>
 </head>
 
 <body ng-app="bookDetailApp" ng-controller="bookDetailCtrl" ng-init="init()" ng-cloak>
 
   <div class="main-part" style="margin-bottom: 100px">
-    <div class="container" style="padding-left: 150px;padding-right: 150px">
-      <div style="float: left;margin-right: 40px;width: 450px">
+    <div class="container" style="padding-left: 100px;padding-right: 100px">
+      <div style="float: left;margin-right: 40px;width: 600px">
         <div ng-bind="book.name" style="font-size: 26px;font-weight: bold;padding: 50px 0 20px 0"></div>
-        <div>
-          <img ng-src="{{downUrl + '?imageName=' + book.picture}}" style="width: 135px;height: 200px;float: left;">
-          <div style="float: left;margin-left: 30px" class="bookInfo">
-            <div>
-              <span>作者：</span>
-              <span ng-bind="book.author"></span>
-            </div>
-            <div>
-              <span>出版社：</span>
-              <span ng-bind="book.press"></span>
-            </div>
-            <div>
-              <span>页数：</span>
-              <span ng-bind="book.page"></span>
-            </div>
-            <div>
-              <span>定价：</span>
-              <span ng-bind="book.price"></span>
-            </div>
-            <div>
-              <span>出版年：</span>
-              <span ng-bind="book.releaseTime"></span>
+        <div class="clearfix"> 
+          <div class="clearfix pull-left" style="width: 400px">
+            <img ng-src="{{downUrl + '?imageName=' + book.picture}}" style="width: 135px;height: 200px;float: left;">
+            <div style="float: left;margin-left: 30px" class="bookInfo">
+              <div>
+                <span>作者：</span>
+                <span ng-bind="book.author"></span>
+              </div>
+              <div>
+                <span>出版社：</span>
+                <span ng-bind="book.press"></span>
+              </div>
+              <div>
+                <span>页数：</span>
+                <span ng-bind="book.page"></span>
+              </div>
+              <div>
+                <span>定价：</span>
+                <span ng-bind="book.price"></span>
+              </div>
+              <div>
+                <span>出版年：</span>
+                <span ng-bind="book.releaseTime"></span>
+              </div>
             </div>
           </div>
-        </div>
-        <div style="clear: both"></div>
-        <div>
-          <div style="font-size: 16px;color: #007722;margin: 50px 0 10px 0">内容简介  · · · · · ·</div>
-          <div ng-bind="book.bookBrife"></div>  
-        </div>
-        <div>
-            <div style="font-size: 16px;color: #007722;margin: 50px 0 10px 0">作者简介  · · · · · ·</div>
-            <div ng-bind="book.authBrife"></div>  
+          <div class="pull-left" style="width: 190px;padding: 10px;border-left: 1px solid #dbdbdb;">
+            <div style="font-size: 12px;color: #9b9b9b">爱读书评分</div>
+            <div style="font-size: 35px;color: #007722" ng-bind="book.score|numfilter" ng-show="book.score!==null"></div>
+            <div style="font-size: 14px;color: #4c1bfd" ng-show="book.score===null">暂无读者评论</div>
           </div>
+        </div>
+        <div>
+          <div style="font-size: 16px;color: #007722;margin: 50px 0 10px 0">内容简介 · · · · · ·</div>
+          <div ng-bind="book.bookBrife"></div>
+        </div>
+        <div>
+          <div style="font-size: 16px;color: #007722;margin: 50px 0 10px 0">作者简介 · · · · · ·</div>
+          <div ng-bind="book.authBrife"></div>
+        </div>
+
+        <div>
+          <div style="font-size: 16px;color: #007722;margin: 50px 0 10px 0">
+            <span>短评 · · · · · ·</span>
+            <span class="blue">
+              <span ng-show="total>0"> （全部{{total}}条）</span>
+              <span ng-show="total===0"> （暂无评论）</span>
+            </span>
+            <span class="pull-right" ng-click="showAdd()">我来说两句</span>
+          </div>
+        </div>
+        <div style="margin-top: 30px">
+          <div class="comment-list" ng-repeat="item in reviewList track by $index" style="border-top: 1px solid #d1d1d1;padding:15px 0">
+            <div class="list-title">
+              <div class="pull-left">
+                <a class="blue" ng-bind="item.userName"></a>
+              </div>
+              <div class="pull-left allstar{{item.score}}"></div>
+              <div class="pull-left gray" ng-bind="item.createTime|newdate" style="font-size: 13px;color: gray">
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="list-content" ng-bind="item.review" style="color:#666"></div>
+          </div>
+        </div>
+      
       </div>
 
       <div style="width:300px;float: right;">
         <div style="margin: 100px 0 30px 0;position: relative;">
           <img src="/book/assets/images/ad.jpg" style="width:100%">
-          <div style="line-height: 1; text-align: center; background-color: rgba(0, 0, 0, 0.3); font-size: 12px; position: absolute; right: 0px; bottom: 0px; padding: 4px; color: rgb(255, 255, 255);">广告</div>
+          <div
+            style="line-height: 1; text-align: center; background-color: rgba(0, 0, 0, 0.3); font-size: 12px; position: absolute; right: 0px; bottom: 0px; padding: 4px; color: rgb(255, 255, 255);">
+            广告</div>
         </div>
 
-        <div style="border-bottom: 1px solid #b9b9b9;margin-bottom: 15px;font-size: 18px;font-weight: bolder;padding-bottom: 5px;">热门标签</div>
+        <div
+          style="border-bottom: 1px solid #b9b9b9;margin-bottom: 15px;font-size: 18px;font-weight: bolder;padding-bottom: 5px;">
+          热门标签</div>
         <ul>
           <li ng-repeat="item in hotList track by $index">
-            <a href="" style="font-size: 13px;padding: 2px 15px 0;display: inline-block;margin: 0 10px 10px 0;line-height: 20px;background-color: #e7e5e5;"
+            <a href=""
+              style="font-size: 13px;padding: 2px 15px 0;display: inline-block;margin: 0 10px 10px 0;line-height: 20px;background-color: #e7e5e5;"
               ng-bind="item.name" ng-click="chooseTag(item.id,item.name)"></a>
           </li>
         </ul>
@@ -99,7 +149,8 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="myModalLabel">添加评论</h4>
         </div>
         <div class="modal-body">
@@ -118,13 +169,15 @@
                 <label class="col-sm-3 control-label">评论</label>
 
                 <div class="col-sm-5">
-                  <textarea class="form-control" id="review" name="review" ng-model="review" placeholder="请输入简评"></textarea>
+                  <textarea class="form-control" id="review" name="review" ng-model="review"
+                    placeholder="请输入简评"></textarea>
                 </div>
               </div>
 
               <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-10">
-                  <button type="submit" class="btn btn-primary" id="login-submit" ng-click="submit()" data-dismiss="modal">
+                  <button type="submit" class="btn btn-primary" id="login-submit" ng-click="submit()"
+                    data-dismiss="modal">
                     提交
                   </button>
                   <button type="button" class="btn btn-default margin-left-40" data-dismiss="modal">关闭</button>

@@ -24,6 +24,7 @@ app.controller("bookDetailCtrl", function ($scope, $rootScope, $location, $timeo
   })
 
   $scope.init = function () {
+    $scope.total = 10;
     $scope.score = 10;
     $scope.bookID = $location.search().bookID;
     $scope.downUrl = "/book/uploadDownload/downloadImage";
@@ -87,7 +88,7 @@ app.controller("bookDetailCtrl", function ($scope, $rootScope, $location, $timeo
           $scope.book = data.bookList[0];
         })
       },
-      error: function (data) { 
+      error: function (data) {
 
       }
     })
@@ -210,5 +211,15 @@ app.config(['$locationProvider', function ($locationProvider) {
 app.filter("newdate", function () {
   return function (date) {
     return date.substring(0, 4) + "-" + date.substring(4, 6) + "-" + date.substring(6, 8) + " " + date.substring(8, 10) + ":" + date.substring(10, 12) + ":" + date.substring(12)
+  }
+})
+app.filter("numfilter", function () {
+  return function (data) {
+    var score = data + ""
+    if (data && score.indexOf(".") === -1) {
+      return score + ".0"
+    }else{
+      return data;
+    }
   }
 })

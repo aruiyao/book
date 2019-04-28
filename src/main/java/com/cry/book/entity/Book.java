@@ -20,6 +20,9 @@ public class Book {
 
     private String price;
 
+    /**影片评分*/
+    private Double score;
+
     private String bookBrife;
 
     private String authBrife;
@@ -98,6 +101,14 @@ public class Book {
         this.price = price;
     }
 
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
+    }
+
     public String getBookBrife() {
         return bookBrife;
     }
@@ -143,6 +154,8 @@ public class Book {
         builder.append(type);
         builder.append(", price=");
         builder.append(price);
+        builder.append(", score=");
+        builder.append(score);
         builder.append(", bookBrife=");
         builder.append(bookBrife);
         builder.append(", authBrife=");
